@@ -19,7 +19,9 @@ use \App\Http\Controllers\AuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware(['cors'])->group(function () {
+    Route::get('/tasks', [TaskController::class, 'index'])->middleware('auth:sanctum');
+});
 
-Route::get('/tasks', [TaskController::class, 'index']);
 Route::post("/register",[AuthController::class,'register']);
 Route::post("/login",[AuthController::class,'login']);
